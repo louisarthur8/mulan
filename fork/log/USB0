@@ -1,18 +1,41 @@
+name:������Z��Z
 envoie du paquet 1 / Tentatives n° 1 avec le  SF7
+/home/pi/Documents/mulan-main/fork
+La distance est de 209.42cm
+------------------------------
+Cpid : 0
+terminé, code=0
+Data : 209.42
 Je choisis le SF 7
-Message envoyé : /dev/ttyUSB0:Thu Feb  3 14:36:27 2022
+Message envoyé : &OK&42
+Ack reçu pour le paquet 1 
 
-Ack non reçu pour le paquet 1 
-
-envoie du paquet 1 / Tentatives n° 2 avec le  SF7
+name:
+envoie du paquet 2 / Tentatives n° 1 avec le  SF7
+/home/pi/Documents/mulan-main/fork
+La distance est de 208.12cm
+------------------------------
+Cpid : 0
+terminé, code=0
+Data : 208.12
 Je choisis le SF 7
-Message envoyé : /dev/ttyUSB0:Thu Feb  3 14:36:27 2022
+Message envoyé : 208.12
+Ack non reçu pour le paquet 2 
 
-Ack non reçu pour le paquet 1 
+envoie du paquet 2 / Tentatives n° 2 avec le  SF7
+/home/pi/Documents/mulan-main/fork
+La distance est de 208.95cm
+------------------------------
+Cpid : 0
+terminé, code=0
+Data : 208.95
+Je choisis le SF 7
+Message envoyé : &KO&95
+Ack reçu pour le paquet 2 
 
-J'ai fini a Thu Feb  3 14:38:48 2022
+J'ai fini a Mon Mar 21 16:52:00 2022
 
 =======Stats======
-Nombre_d_envoie: 2
+Nombre_d_envoie: 3
 Nombre_de_retransmission: 1
-Nombre_d_acquittement: 0
+Nombre_d_acquittement: 2

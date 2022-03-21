@@ -49,71 +49,6 @@ struct node {
 };
 
 
-char* getData(){
-    char cwd[256];
-    printf("%s\n", getcwd(cwd, sizeof(cwd)));
-    int status = 0;
-    pid_t w;
-    //pid_t cpid = system("python3 capteur_15.py");
-    pid_t cpid = system("python3 capteur_50.py");
-    printf("Cpid : %d\n", cpid);
-
-    if (cpid == -1)
-        printf("Erreur avec la command shell");
-    else
-    {
-        printf("terminé, code=%d\n", WEXITSTATUS(status));
-        do
-        {
-            w = waitpid(cpid, &status, WUNTRACED | WCONTINUED | SA_NOCLDWAIT);
-
-            if (w == -1)
-            {
-                //perror("waitpid");
-                break;
-            }
-
-            if (WIFEXITED(status))
-            {
-                printf("terminé, code=%d\n", WEXITSTATUS(status));
-            }
-            else if (WIFSIGNALED(status))
-            {
-                printf("tué par le signal %d\n", WTERMSIG(status));
-            }
-            else if (WIFSTOPPED(status))
-            {
-                printf("arrêté par le signal %d\n", WSTOPSIG(status));
-            }
-            else if (WIFCONTINUED(status))
-            {
-                printf("relancé\n");
-            }
-        }
-        while (!WIFEXITED(status) && !WIFSIGNALED(status));
-        //Lire le fichier + return
-        FILE *file;
-        char c;
-        char* str = malloc(1024);
-        strcpy(str, "");
-        
-        file = fopen("data.txt", "r");
-        
-        while (1)
-        {
-            c = fgetc(file);
-            if (feof(file))
-            {
-                break;
-            }
-            strncat(str, &c, 1);
-        }
-            
-        return str;
-    }
-    return "No data";
-}
-
 
 void simple_norm(double SFs[]){
     double s = 0;
@@ -192,17 +127,16 @@ void transmit(arm_t* myArm,struct node *n,int confd){
         printf("%s",writer+strlen(n->name)+2);
 
 
-        char* data;
-        data = getData();
-        printf("Data : %s\n", data);
+        uint8_t data[8] = {0,5,1,1,5};
+        
 
-        armSend(myArm,data,strlen(data));
+        armSend(myArm,send,strlen(send));
         uint8_t receivetest = 0;
 
 
         printf("Je choisis le SF %d\n",n->SF);
         receivetest = armReceive(myArm,data,sizeof(data),3000);
-        printf("Message envoyé : %s\n",data);
+        printf("Message envoyé : %s\n",send);
         fflush(stdout);
 
 

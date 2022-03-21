@@ -13,6 +13,8 @@
 #include <errno.h>
 #include <termios.h>
 #include <unistd.h>
+#include </usr/include/python3.7/Python.h>
+
 
 
 #define MAX_MEM 1024
@@ -49,71 +51,48 @@ struct node {
 };
 
 
-char* getData(){
-    char cwd[256];
-    printf("%s\n", getcwd(cwd, sizeof(cwd)));
-    int status = 0;
-    pid_t w;
-    //pid_t cpid = system("python3 capteur_15.py");
-    pid_t cpid = system("python3 capteur_50.py");
-    printf("Cpid : %d\n", cpid);
+int capteur(char* module_name){
+    PyObject  *pModule, *pDict, *pFunc;
+    PyObject *pArgs, *pValue;
 
-    if (cpid == -1)
-        printf("Erreur avec la command shell");
-    else
-    {
-        printf("terminé, code=%d\n", WEXITSTATUS(status));
-        do
-        {
-            w = waitpid(cpid, &status, WUNTRACED | WCONTINUED | SA_NOCLDWAIT);
+    Py_Initialize();
+    
+    char* path = "/home/pi/Documents/mulan-main/fork";
+    
 
-            if (w == -1)
-            {
-                //perror("waitpid");
-                break;
-            }
+    PySys_SetPath(L"/home/pi/Documents/mulan-main/fork");  // path to the module to import
+    PyObject* pName = PyUnicode_FromString(module_name);
 
-            if (WIFEXITED(status))
-            {
-                printf("terminé, code=%d\n", WEXITSTATUS(status));
-            }
-            else if (WIFSIGNALED(status))
-            {
-                printf("tué par le signal %d\n", WTERMSIG(status));
-            }
-            else if (WIFSTOPPED(status))
-            {
-                printf("arrêté par le signal %d\n", WSTOPSIG(status));
-            }
-            else if (WIFCONTINUED(status))
-            {
-                printf("relancé\n");
-            }
+    pModule = PyImport_Import(pName);
+    if (pModule != NULL) {
+        PyObject *pythonArgument;
+        pythonArgument = PyTuple_New(1);
+        pValue = PyUnicode_FromString("cyberpersons");
+
+        if (pValue == NULL) {
+            return 1;
         }
-        while (!WIFEXITED(status) && !WIFSIGNALED(status));
-        //Lire le fichier + return
-        FILE *file;
-        char c;
-        char* str = malloc(1024);
-        strcpy(str, "");
-        
-        file = fopen("data.txt", "r");
-        
-        while (1)
-        {
-            c = fgetc(file);
-            if (feof(file))
-            {
-                break;
+        PyTuple_SetItem(pythonArgument, 0, pValue);
+        pFunc = PyObject_GetAttrString(pModule, "");
+        if (pFunc && PyCallable_Check(pFunc)) {
+            pValue = PyObject_CallObject(pFunc, pythonArgument);
+            if (pValue != NULL) {
+                printf("Value returuend from the function %s", PyUnicode_AsUTF8String(pValue));
+            } else {
+                PyErr_Print();
             }
-            strncat(str, &c, 1);
+        } else {
+            if (PyErr_Occurred())
+                PyErr_Print();
+            fprintf(stderr, "Cannot find function \n");
         }
-            
-        return str;
     }
-    return "No data";
+    else {
+        PyErr_Print();
+        fprintf(stderr, "Failed to load %s\n", module_name);
+        return 1;
+    }
 }
-
 
 void simple_norm(double SFs[]){
     double s = 0;
@@ -192,17 +171,17 @@ void transmit(arm_t* myArm,struct node *n,int confd){
         printf("%s",writer+strlen(n->name)+2);
 
 
-        char* data;
-        data = getData();
-        printf("Data : %s\n", data);
+        uint8_t data[8] = {0,5,1,1,5};
+        
+        capteur("capteur_15");
 
-        armSend(myArm,data,strlen(data));
+        armSend(myArm,send,strlen(send));
         uint8_t receivetest = 0;
 
 
         printf("Je choisis le SF %d\n",n->SF);
         receivetest = armReceive(myArm,data,sizeof(data),3000);
-        printf("Message envoyé : %s\n",data);
+        printf("Message envoyé : %s\n",send);
         fflush(stdout);
 
 
@@ -318,8 +297,6 @@ void minsf_cut(struct node *n,double alpha){
 
 int main(int argc,char* argv[])
 {
-    
-    
     printf("starting main\n");
     int total_send = 0;
     int total_retransmission = 0;
@@ -375,7 +352,8 @@ int main(int argc,char* argv[])
             life = strtol(out,NULL,10);
         }
 
-        pid_t p = fork();
+        //pid_t p = fork();
+        int p = 0;
         if (p == 0){
 
             //name

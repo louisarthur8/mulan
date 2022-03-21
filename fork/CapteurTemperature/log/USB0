@@ -1,0 +1,19 @@
+name:��Ⱦ�Ⱦ�
+envoie du paquet 1 / Tentatives n° 1 avec le  SF9
+Je choisis le SF 9
+Message envoyé : /dev/ttyUSB0:Fri Mar 18 12:15:21 2022
+
+Ack non reçu pour le paquet 1 
+
+envoie du paquet 1 / Tentatives n° 2 avec le  SF9
+Je choisis le SF 9
+Message envoyé : /dev/ttyUSB0:Fri Mar 18 12:15:21 2022
+
+Ack non reçu pour le paquet 1 
+
+J'ai fini a Fri Mar 18 12:17:42 2022
+
+=======Stats======
+Nombre_d_envoie: 2
+Nombre_de_retransmission: 1
+Nombre_d_acquittement: 0
