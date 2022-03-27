@@ -25,9 +25,20 @@
 
 double ran_expo(double lambda);
 double airtime(int SF,int CR, int pl, int bw);
-void update(double SFs[],int minSF,int SF,int acked,bool punish);
+//void update(double SFs[],int minSF,int SF,int acked,bool punish);
+void update(int now_sf,int acked);
 void simple_norm(double SFs[]);
-int random_pick_sf(double SFs[]);
+//int random_pick_sf(double SFs[]);
+int random_pick_sf(int minsf);
+
+int epsilon = 0; // proba to not pick the best
+int alpha = 1; // learning rate
+
+int is_acked = -1;
+int sf = 12;
+int minsf = 12;
+
+int SFs[6] = {0};
 
 
 void printArmErr(armError_t err);
@@ -48,6 +59,17 @@ struct node {
     int acked;      //nombre total d'acquittement
 };
 
+int max(int* tab){
+    int indice = 0;
+    int max = tab[0];
+    for(int i = 0 ; i<sizeof(tab) ; i++){
+        if(tab[i] > max){
+            max = tab[i];
+            indice = i;
+        }
+    }
+    return indice;
+}
 
 char* getData(){
     char cwd[256];
@@ -55,7 +77,9 @@ char* getData(){
     int status = 0;
     pid_t w;
     //pid_t cpid = system("python3 capteur_15.py");
-    pid_t cpid = system("python3 capteur_50.py");
+    //pid_t cpid = system("python3 capteur_50.py");
+    //pid_t cpid = system("python3 capteur_32.py");
+    pid_t cpid = system("python3 capteur_40.py");
     printf("Cpid : %d\n", cpid);
 
     if (cpid == -1)
@@ -126,7 +150,7 @@ void simple_norm(double SFs[]){
 
 }
 
-
+/*
 void update(double SFs[],int minSF,int SF,int acked,bool punish){
     if (acked){
         SFs[SF-7] *= (1 + 3*exp(-fabs(SF-minSF)));
@@ -139,6 +163,10 @@ void update(double SFs[],int minSF,int SF,int acked,bool punish){
     }
     simple_norm(SFs);
 
+}*/
+
+void update(int now_sf,int acked){
+    SFs[now_sf-7] = SFs[now_sf-7] + alpha * (acked - SFs[now_sf-7]);
 }
 
 void transmit(arm_t* myArm,struct node *n,int confd){
@@ -226,16 +254,16 @@ void transmit(arm_t* myArm,struct node *n,int confd){
             n->acked++;
             free(send);
             ltrans = 0;
-            update(n->SFs,n->minSF,n->SF,1,punish_on);
+            update(n->SF,1);
         } else {
             double x = rand() / (RAND_MAX + 1.0);
             if (x < n->SFs[n->SF-7]){
                 punish_on = true;
             }
-            update(n->SFs,n->minSF,n->SF,0,punish_on);              // met à jour le tableau de score
+            update(n->SF,0);              // met à jour le tableau de score
         }
 
-        n->SF = random_pick_sf(n->SFs);
+        n->SF = random_pick_sf(minsf);
         fflush(stdout);
         armLwGetRadio(myArm,NULL,NULL,&lastSF,NULL,NULL);
         armError_t e = armLwSetRadio(myArm,0,0,n->SF,12,0);
@@ -258,7 +286,7 @@ void transmit(arm_t* myArm,struct node *n,int confd){
     free(writer);
 }
 
-
+/*
 int random_pick_sf(double SFs[]){
     int x = 0;
     double cumulative_prob = 0;
@@ -271,6 +299,17 @@ int random_pick_sf(double SFs[]){
         }
     }
     return x + 7;
+}*/
+
+int random_pick_sf(int minsf){
+    int x = rand() %2;
+    if (x > epsilon)
+        return max(SFs) + 7;
+    else{
+        int x = (rand() % (13-minsf)) + minsf;
+        return x;
+    }
+
 }
 
 double ran_expo(double lambda){
@@ -428,7 +467,7 @@ int main(int argc,char* argv[])
 
         int saveout = dup(STDOUT_FILENO);
 
-    //rajout bizarre
+ 
     char* writer = NULL;
     writer = malloc(MAX_MEM);
     
@@ -617,3 +656,5 @@ void printArmErr(armError_t err)
 		break;
 	}
 }
+
+

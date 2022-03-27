@@ -1,39 +1,176 @@
-name:������Z��Z
+name:����Ȏ�
 envoie du paquet 1 / Tentatives n° 1 avec le  SF7
 /home/pi/Documents/mulan-main/fork
-La distance est de 209.42cm
+Sensor-Test [Appuyez sur Ctrl + C pour terminer le test]
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 1
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 2
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 3
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 4
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 5
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 6
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 7
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 8
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 9
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 10
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 11
 ------------------------------
 Cpid : 0
 terminé, code=0
-Data : 209.42
+Data : Sens de rotation: sens des aiguilles d'une montre, Position actuelle: 11------------------------------
 Je choisis le SF 7
-Message envoyé : &OK&42
+Message envoyé : &OK& de rotation: sens des aiguilles d'une montre, Position actuelle: 11------------------------------
 Ack reçu pour le paquet 1 
 
 name:
-envoie du paquet 2 / Tentatives n° 1 avec le  SF7
+envoie du paquet 2 / Tentatives n° 1 avec le  SF12
 /home/pi/Documents/mulan-main/fork
-La distance est de 208.12cm
+Sensor-Test [Appuyez sur Ctrl + C pour terminer le test]
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 1
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 2
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 3
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 4
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 5
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 6
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 7
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 8
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 9
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 10
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens contraire des aiguilles d'une montre
+Position actuelle: 9
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 10
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 11
 ------------------------------
 Cpid : 0
 terminé, code=0
-Data : 208.12
-Je choisis le SF 7
-Message envoyé : 208.12
+Data : Sens de rotation: sens des aiguilles d'une montre, Position actuelle: 11------------------------------
+Je choisis le SF 12
+Message envoyé : Sens de rotation: sens des aiguilles d'une montre, Position actuelle: 11------------------------------
 Ack non reçu pour le paquet 2 
 
 envoie du paquet 2 / Tentatives n° 2 avec le  SF7
 /home/pi/Documents/mulan-main/fork
-La distance est de 208.95cm
+Sensor-Test [Appuyez sur Ctrl + C pour terminer le test]
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 1
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 2
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 3
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 4
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 5
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 6
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 7
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 8
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 9
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 10
+------------------------------
+Rotation détectée: 
+Sens de rotation: sens des aiguilles d'une montre
+Position actuelle: 11
 ------------------------------
 Cpid : 0
 terminé, code=0
-Data : 208.95
+Data : Sens de rotation: sens des aiguilles d'une montre, Position actuelle: 11------------------------------
 Je choisis le SF 7
-Message envoyé : &KO&95
+Message envoyé : &OK& de rotation: sens des aiguilles d'une montre, Position actuelle: 11------------------------------
 Ack reçu pour le paquet 2 
 
-J'ai fini a Mon Mar 21 16:52:00 2022
+J'ai fini a Fri Mar 25 16:33:20 2022
 
 =======Stats======
 Nombre_d_envoie: 3
